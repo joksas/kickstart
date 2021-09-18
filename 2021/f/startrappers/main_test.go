@@ -8,7 +8,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
-func TestTotalDistanceEfficient(t *testing.T) {
+func TestFourClosest(t *testing.T) {
 	var tests = []struct {
 		blueStar    startrappers.Coordinates
 		whiteStars  []startrappers.Coordinates
