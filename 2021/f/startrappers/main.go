@@ -116,17 +116,10 @@ func FourClosest(blueStar Coordinates, whiteStars []Coordinates) map[int]Coordin
 }
 
 func updateClosestPoint(blueStar Coordinates, distance float64, closestPoint ClosestPoint) ClosestPoint {
-	if closestPoint.Coordinates == nil {
+	if closestPoint.Coordinates == nil || distance < closestPoint.Distance {
 		closestPoint = ClosestPoint{
 			Coordinates: &blueStar,
 			Distance:    distance,
-		}
-	} else {
-		if distance < closestPoint.Distance {
-			closestPoint = ClosestPoint{
-				Coordinates: &blueStar,
-				Distance:    distance,
-			}
 		}
 	}
 
