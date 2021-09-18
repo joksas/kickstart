@@ -1,7 +1,7 @@
 package trashbins_test
 
 import (
-	"go/f/trashbins"
+	"go/2021/f/trashbins"
 	"testing"
 )
 
