@@ -74,7 +74,6 @@ func main() {
 	}
 }
 
-// NE and SW will take borders
 func FourClosest(blueStar Coordinates, whiteStars []Coordinates) map[int]Coordinates {
 	var NE = ClosestPoint{}
 	var NW = ClosestPoint{}
@@ -83,6 +82,7 @@ func FourClosest(blueStar Coordinates, whiteStars []Coordinates) map[int]Coordin
 
 	for _, whiteStar := range whiteStars {
 		distance := distanceBetween(whiteStar, blueStar)
+		// Each quadrant will take a border in counter-clockwise direction.
 		if whiteStar.X >= blueStar.X && whiteStar.Y > blueStar.Y {
 			NE = updateClosestPoint(whiteStar, distance, NE)
 		}
