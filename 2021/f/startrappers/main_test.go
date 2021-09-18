@@ -37,10 +37,10 @@ func TestTotalDistanceEfficient(t *testing.T) {
 	}
 }
 
-func TestStarsDistance(t *testing.T) {
+func TestStarsPerimeter(t *testing.T) {
 	var tests = []struct {
-		stars    map[int]startrappers.Coordinates
-		distance float64
+		stars     map[int]startrappers.Coordinates
+		perimeter float64
 	}{
 		{
 			map[int]startrappers.Coordinates{
@@ -53,9 +53,9 @@ func TestStarsDistance(t *testing.T) {
 	}
 
 	for i, test := range tests {
-		perimeter := startrappers.StarsDistance(test.stars)
-		if !cmp.Equal(perimeter, test.distance, cmpopts.EquateApprox(0.0001, 0.0001)) {
-			t.Errorf("test #%d: input=%+v, expected=%f, got=%f", i, test.stars, test.distance, perimeter)
+		perimeter := startrappers.StarsPerimeter(test.stars)
+		if !cmp.Equal(perimeter, test.perimeter, cmpopts.EquateApprox(0.0001, 0.0001)) {
+			t.Errorf("test #%d: input=%+v, expected=%f, got=%f", i, test.stars, test.perimeter, perimeter)
 		}
 	}
 }

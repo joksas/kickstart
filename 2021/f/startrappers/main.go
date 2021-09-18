@@ -62,14 +62,14 @@ func main() {
 						continue
 					}
 				}
-				distance := StarsDistance(closestStars)
+				distance := StarsPerimeter(closestStars)
 				printCase(idxCase, &distance)
 				break
 			}
 			continue
 		}
 
-		distance := StarsDistance(closestStars)
+		distance := StarsPerimeter(closestStars)
 		printCase(idxCase, &distance)
 	}
 }
@@ -147,8 +147,8 @@ func printCase(idxCase int, distance *float64) {
 	fmt.Printf("Case #%d: %f\n", idxCase, *distance)
 }
 
-func StarsDistance(stars map[int]Coordinates) float64 {
-	var totalDistance float64
+func StarsPerimeter(stars map[int]Coordinates) float64 {
+	var perimeter float64
 
 	var firstStar, lastStar Coordinates
 
@@ -166,12 +166,12 @@ func StarsDistance(stars map[int]Coordinates) float64 {
 			continue
 		}
 		distance := distanceBetween(previousStar, currentStar)
-		totalDistance += distance
+		perimeter += distance
 		previousStar = currentStar
 		lastStar = currentStar
 	}
 
-	totalDistance += distanceBetween(firstStar, lastStar)
+	perimeter += distanceBetween(firstStar, lastStar)
 
-	return totalDistance
+	return perimeter
 }
