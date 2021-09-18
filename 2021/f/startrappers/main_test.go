@@ -27,6 +27,22 @@ func TestFourClosest(t *testing.T) {
 				1: {0, 5},
 			},
 		},
+		{
+			startrappers.Coordinates{1, 1},
+			[]startrappers.Coordinates{
+				{0, 0},
+				{-10, -10},
+				{10, 0},
+				{5, 0},
+				{0, 5},
+				{-5, 12},
+			},
+			map[int]startrappers.Coordinates{
+				2: {0, 0},
+				3: {5, 0},
+				1: {0, 5},
+			},
+		},
 	}
 
 	for i, test := range tests {
