@@ -11,11 +11,12 @@ func main() {
 
 	for idxCase := 1; idxCase <= numCases; idxCase++ {
 		var dummy int
+		fmt.Scanln(&dummy)
 		var hasBinStr string
-		fmt.Scan(&dummy, &hasBinStr)
+		fmt.Scanln(&hasBinStr)
 
-		hasBinSlice := hasBinStrToBoolSlice(hasBinStr)
-		totalDistance := TotalDistance(hasBinSlice)
+		binPositions, noBinPositions := binAndNoBinPositions(hasBinStr)
+		totalDistance := TotalDistanceEfficient(binPositions, noBinPositions)
 		printCase(idxCase, totalDistance)
 		if idxCase < numCases {
 			fmt.Println()
@@ -23,47 +24,39 @@ func main() {
 	}
 }
 
-func hasBinStrToBoolSlice(hasBinStr string) []bool {
-	hasBinSlice := make([]bool, len(hasBinStr))
+func binAndNoBinPositions(hasBinStr string) ([]int, []int) {
+	var binPositions []int
+	var noBinPositions []int
 
 	for idx, char := range hasBinStr {
 		if char == '0' {
-			hasBinSlice[idx] = false
+			noBinPositions = append(noBinPositions, idx)
 		} else {
-			hasBinSlice[idx] = true
-		}
-	}
-
-	return hasBinSlice
-}
-
-func TotalDistance(hasBinSlice []bool) int {
-	var binPositions []int
-	for idx, hasBin := range hasBinSlice {
-		if hasBin {
 			binPositions = append(binPositions, idx)
 		}
 	}
 
+	return binPositions, noBinPositions
+}
+
+func TotalDistanceEfficient(binPositions, noBinPositions []int) int {
 	var totalDistance int
-	for pos, hasBin := range hasBinSlice {
-		if hasBin {
-			continue
-		}
-		idxRight := sort.SearchInts(binPositions, pos)
+
+	for _, noBinPosition := range noBinPositions {
+		idxRight := sort.SearchInts(binPositions, noBinPosition)
 		if idxRight >= len(binPositions) {
-			totalDistance += pos - binPositions[len(binPositions)-1]
+			totalDistance += noBinPosition - binPositions[len(binPositions)-1]
 			continue
 		}
 		if idxRight == 0 {
-			totalDistance += binPositions[0] - pos
+			totalDistance += binPositions[0] - noBinPosition
 			continue
 		}
-		posRight := binPositions[idxRight]
-		posLeft := binPositions[idxRight-1]
+		binPositionRight := binPositions[idxRight]
+		binPositionLeft := binPositions[idxRight-1]
 
-		distanceLeft := pos - posLeft
-		distanceRight := posRight - pos
+		distanceLeft := noBinPosition - binPositionLeft
+		distanceRight := binPositionRight - noBinPosition
 		if distanceLeft < distanceRight {
 			totalDistance += distanceLeft
 		} else {
